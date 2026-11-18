@@ -6,7 +6,8 @@ Keep `README.md` accurate for the current checkout. Update the project's descrip
 
 - The root holds project documentation, repository metadata, and the applicable `train.py`, `inference.py`, and `eval.py` entry points.
 - `configs/` holds flat configuration files. `models/` holds model code, `datasets/` holds data loading and split logic, and `utils/` holds helpers shared across modules.
-- `baselines/<baseline_name>/` holds one baseline's adapter and configuration. `experiments/<experiment_name>/` holds one experiment's overrides, reproduction command, and any launcher it needs.
+- `baselines/<baseline_name>/` holds one baseline's adapter and configuration.
+- Group experiments by the question they answer. Create categories as needed (`training/`, `benchmark/`, `case_study/`, `ablation/`, `sensitivity/`, etc.). Each `experiments/<category>/<experiment_name>/` contains a `run.sh` that can be invoked from the repository root.
 - `tests/` holds reusable regression tests. Run one-off checks in a temporary directory outside the repository.
 - Training artifacts go to the Hydra run directory, under `outputs/` by default. Standalone inference and evaluation each write to their explicit `--output-dir`.
 

@@ -22,7 +22,7 @@ Set up dependencies only in the target research project when execution or setup 
 
 - Use the [project directory layout](assets/project/AGENTS.md#directory-layout) to place each file by purpose. Reserve root-level Python commands for training, inference, and evaluation. Reuse those entry points when only the arguments change.
 - Keep each baseline's adapter, config, and upstream revision in `baselines/<baseline_name>/`. Compare through the same evaluator and state each baseline's split and budget.
-- Keep each experiment's question, reproduction command, and config overrides in `experiments/<experiment_name>/`. Put a necessary launcher there. Keep shared method code in its owning module and record the Git commit with results.
+- File each experiment under its primary research question in `experiments/<category>/<experiment_name>/`. Record the question and overrides there. Give each experiment one `run.sh` that calls the relevant project entry points in order. Reuse it across seeds and record the Git commit with results.
 - Use descriptive `snake_case` names. Never name iterations `v1`, `v2`, or `final_final`. Use Git for revisions, name coexisting variants by mechanism, and retain official external version identifiers.
 
 ## Before finishing
