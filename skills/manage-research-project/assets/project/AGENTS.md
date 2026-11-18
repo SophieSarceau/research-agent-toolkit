@@ -1,13 +1,13 @@
-# 项目协作
+# Working on this project
 
-## 入口
+## Entry points
 
-- 训练使用 Hydra 和 PyTorch Lightning。先接入 `models/pl_model.py` 和 `datasets/pl_data.py`，再运行 `python train.py`。`python train.py --cfg job` 可预览配置。训练目录取自 `configs/config.yaml`，例如 `python train.py hydra.run.dir=/path/to/run`。启用 W&B 时安装 `wandb`。
-- 推理使用 OmegaConf 读取 `configs/inference.yaml`。在 `inference.py` 实现 `predict`，通过 `python inference.py --input INPUT --output-dir PREDICTIONS` 生成预测。
-- 评测在 `eval.py` 实现 `evaluate`。通过 `python eval.py --predictions PREDICTIONS --output-dir METRICS` 重算指标。有参考数据时加 `--reference REFERENCE`。
+- **Train.** Implement the model in `models/pl_model.py` and the data module in `datasets/pl_data.py`. Preview the Hydra configuration with `python train.py --cfg job`, then run `python train.py`. Set the training directory in `configs/config.yaml` or override it with `python train.py hydra.run.dir=/path/to/run`. Install `wandb` if tracking is enabled.
+- **Infer.** Implement `predict` in `inference.py`. Read settings such as `inference.seed` from `configs/inference.yaml`. Run `python inference.py --input INPUT --output-dir PREDICTIONS`.
+- **Evaluate.** Implement `evaluate` in `eval.py`. Run `python eval.py --predictions PREDICTIONS --output-dir METRICS` to score saved predictions. Add `--reference REFERENCE` when the metric needs reference data.
 
-## 当前进度
+## Current progress
 
-- 当前工作：
-- 最近验证及依据：
-- 待解决或已确认的下一步：
+- Current work:
+- Latest verified result and evidence:
+- Open question or agreed next step:

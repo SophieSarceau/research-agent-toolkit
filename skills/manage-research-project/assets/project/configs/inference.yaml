@@ -1,5 +1,5 @@
 model:
   checkpoint: null
 
-sample:
+inference:
   seed: 2021
