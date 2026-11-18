@@ -10,7 +10,7 @@ To use these defaults across local projects, merge the relevant sections into `~
 
 ## Skills
 
-[Manage a research project](skills/manage-research-project/SKILL.md) covers the repository layout, Hydra configurations, baselines, experiments, and run artifacts for trained and training-free methods. It includes a [code-free project template](skills/manage-research-project/assets/project/).
+[Manage a research project](skills/manage-research-project/SKILL.md) covers training-based and training-free repositories. The [Python project template](skills/manage-research-project/assets/project/) includes training, inference and evaluation entry points, Lightning model and data interfaces, and flat Hydra configuration files.
 
 ## Adding skills
 

@@ -6,5 +6,8 @@ model: {}
 
 train:
   seed: 2021
+  max_epochs: null
 
-sys: {}
+sys:
+  accelerator: auto
+  devices: 1
