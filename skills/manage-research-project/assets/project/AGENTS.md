@@ -1,5 +1,7 @@
 # Working on this project
 
+Keep the repository root free of `scripts/`. Use the entry points below for routine runs. Keep regression tests in `tests/`, experiment launchers with their experiment, and baseline adapters with their baseline. Run one-off checks in a temporary directory outside the repository.
+
 ## Entry points
 
 - **Train.** Implement the model in `models/pl_model.py` and the data module in `datasets/pl_data.py`. Preview the Hydra configuration with `python train.py --cfg job`, then run `python train.py`. Set the training directory in `configs/config.yaml` or override it with `python train.py hydra.run.dir=/path/to/run`. Install `wandb` if tracking is enabled.

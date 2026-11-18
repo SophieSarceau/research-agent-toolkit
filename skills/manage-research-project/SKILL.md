@@ -54,9 +54,20 @@ Treat per-input search, reranking, or iterative optimization as inference and re
 - For a single training run, Hydra resolves `hydra.run.dir` from `configs/config.yaml`. The default is `outputs/YYYY-MM-DD/HH-MM-SS-<experiment_name>/`. For a sweep, use `hydra.sweep.dir` and `hydra.sweep.subdir`. Read the final directory from `HydraConfig.get().runtime.output_dir` and place checkpoints, the Hydra configuration snapshot, logs, and local W&B files there. Keep `hydra.job.chdir: false`.
 - For standalone inference and evaluation, pass an explicit `--output-dir` to each command. Record the weights and configuration used to predict, the prediction path used for scoring, and the Git commit and overrides needed to reproduce the result.
 
+## Before adding a script
+
+The research repository root must never contain a `scripts/` directory. Place each maintained file with the test, experiment, baseline, or module that owns it. Before adding a script, check whether an existing command already does the job.
+
+| Purpose | Where it belongs |
+| --- | --- |
+| Run training, inference, or evaluation with different arguments | Reuse the existing entry point. Record the command or config overrides with the experiment. Changing a seed or checkpoint does not need a Python wrapper. |
+| Reproduce a specific experiment or run a baseline | Keep a launcher in `experiments/<experiment_name>/` or an adapter in `baselines/<baseline_name>/` only when it performs necessary work beyond passing arguments. |
+| Check a lasting behavior | Add a focused test in `tests/` when it can detect a specific regression. A check that only prints a value for inspection can run interactively. |
+| Diagnose a failure or perform a one-time check | Use an inline command or a temporary directory outside the repository. Remove any scratch files the task created. |
+
 ## Cleanup and handoff
 
-Before finishing, review `git status` and the files the task created. Run one-off diagnostics in a temporary directory when practical. Remove temporary logs, diagnostic scripts, scratch tests, and their caches after use. Keep reusable regression tests in `tests/` and reproduction scripts with their experiment. Preserve user files, active runs, paper results, and the evidence needed to reproduce them. An ignore rule alone does not establish that a file is safe to delete.
+Before finishing, run `test ! -d ./scripts` from the repository root. Check `git status --short --untracked-files=all` and review each new script against the table above. Remove the task's temporary logs, scratch files, and caches. Preserve user files, active runs, paper results, and their reproduction evidence. An ignore rule alone does not establish that a file is safe to delete.
 
 When progress changes, update the existing progress section in the project's [AGENTS.md](assets/project/AGENTS.md). State the current work, latest verified result and its evidence, and an open question or agreed next step. Replace stale entries and link to the relevant commit or artifact. Keep detailed history in Git and per-run metrics in the run directory.
 
