@@ -65,6 +65,12 @@ The research repository root must never contain a `scripts/` directory. Place ea
 | Check a lasting behavior | Add a focused test in `tests/` when it can detect a specific regression. A check that only prints a value for inspection can run interactively. |
 | Diagnose a failure or perform a one-time check | Use an inline command or a temporary directory outside the repository. Remove any scratch files the task created. |
 
+## Project README
+
+Write `README.md` for someone using the current checkout. Describe the project's purpose, current status, available features, and how to use them. When a change affects that description, update the relevant passage in the same change and check any affected example against the current code or configuration.
+
+Replace obsolete text in place. Keep release notes, descriptions of past versions, and comparisons between project versions out of the README. Git records the history.
+
 ## Cleanup and handoff
 
 Before finishing, run `test ! -d ./scripts` from the repository root. Check `git status --short --untracked-files=all` and review each new script against the table above. Remove the task's temporary logs, scratch files, and caches. Preserve user files, active runs, paper results, and their reproduction evidence. An ignore rule alone does not establish that a file is safe to delete.
