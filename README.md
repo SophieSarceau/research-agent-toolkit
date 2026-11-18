@@ -10,4 +10,6 @@ To use these defaults across local projects, merge the relevant sections into `~
 
 ## Adding skills
 
+[Manage a research project](skills/manage-research-project/SKILL.md) covers the repository layout, Hydra configurations, baselines, experiments, and run artifacts for trained and training-free methods. It includes a [code-free project template](skills/manage-research-project/assets/project/).
+
 Store each reusable workflow in `skills/<skill-name>/SKILL.md`. Give it a name and a description that says when to use it. To enable a skill in a research project, copy its directory into that project's `.agents/skills/` directory.

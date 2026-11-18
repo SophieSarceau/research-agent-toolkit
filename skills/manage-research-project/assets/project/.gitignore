@@ -1,0 +1,7 @@
+/outputs/
+/wandb/
+/lightning_logs/
+__pycache__/
+.pytest_cache/
+/.hydra/
+/.DS_Store
