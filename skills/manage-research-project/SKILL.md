@@ -20,7 +20,7 @@ Set up dependencies only in the target research project when execution or setup 
 
 ## Files and experiments
 
-- The repository root must never contain `scripts/`. Reuse entry points for argument changes. Put regression tests in `tests/` and run one-off checks outside the repository.
+- Use the [project directory layout](assets/project/AGENTS.md#directory-layout) to place each file by purpose. Reserve root-level Python commands for training, inference, and evaluation. Reuse those entry points when only the arguments change.
 - Keep each baseline's adapter, config, and upstream revision in `baselines/<baseline_name>/`. Compare through the same evaluator and state each baseline's split and budget.
 - Keep each experiment's question, reproduction command, and config overrides in `experiments/<experiment_name>/`. Put a necessary launcher there. Keep shared method code in its owning module and record the Git commit with results.
 - Use descriptive `snake_case` names. Never name iterations `v1`, `v2`, or `final_final`. Use Git for revisions, name coexisting variants by mechanism, and retain official external version identifiers.
@@ -30,4 +30,4 @@ Set up dependencies only in the target research project when execution or setup 
 - Update `README.md` in place when the project's purpose, status, features, or usage changes. Verify affected examples. Keep release notes, past-version descriptions, and version comparisons out of the README.
 - Keep only the current work, latest verified result with evidence, and an open question or agreed next step in the `AGENTS.md` progress section.
 - Check the relevant entry points. For training changes, verify configuration composition and the run-directory override. For prediction or scoring changes, pass a small input through inference and evaluation once implemented.
-- Run `test ! -d ./scripts` and `git status --short --untracked-files=all` from the project root. Remove temporary logs, diagnostic scripts, and caches created by the task. Preserve user files, active runs, and evidence needed to reproduce results.
+- Run `git status --short --untracked-files=all` and check that each new file belongs in its directory. Remove temporary logs, diagnostics, and caches created by the task. Preserve user files, active runs, and evidence needed to reproduce results.
