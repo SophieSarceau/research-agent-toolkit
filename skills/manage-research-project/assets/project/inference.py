@@ -1,4 +1,4 @@
-"""Generate predictions for new inputs using the project's sampling configuration."""
+"""Generate predictions for new inputs using the project's inference configuration."""
 
 import argparse
 from pathlib import Path
@@ -16,7 +16,7 @@ def main() -> None:
     parser.add_argument("--input", type=Path, required=True, help="Input file or directory")
     parser.add_argument("--output-dir", type=Path, required=True, help="Prediction directory")
     parser.add_argument(
-        "--config", type=Path, default=Path(__file__).parent / "configs" / "sampling.yaml"
+        "--config", type=Path, default=Path(__file__).parent / "configs" / "inference.yaml"
     )
     args = parser.parse_args()
     predict(args.input, args.output_dir, OmegaConf.load(args.config))

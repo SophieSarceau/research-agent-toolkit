@@ -12,7 +12,7 @@ AGENTS.md
 configs/
   config.yaml
   training.yaml
-  sampling.yaml
+  inference.yaml
   wandb.yaml
 train.py                          训练型方法
 inference.py                      对输入生成预测或样本
@@ -29,9 +29,9 @@ outputs/                          默认训练运行根目录，启动训练时�
 
 - 在 `models/pl_model.py` 接入 LightningModule，在 `datasets/pl_data.py` 接入 LightningDataModule。`train.py` 组合 Hydra 配置、初始化可选的 W&B 日志，再交给 Lightning Trainer 拟合和保存 checkpoint。训练中的 validation 可复用评测逻辑。
 - `inference.py` 读取输入及指定的模型或算法参数，写出可按样本 ID 对齐的预测。单样本和批量使用同一预测逻辑。`eval.py` 读取明确指定的预测目录、数据划分和可用参考值，保存指标、分母及失败样本的处理方式。重算指标时直接使用保存的预测。
-- [configs/](assets/project/configs/) 采用扁平结构。`config.yaml` 组合配置，定义实验名和训练运行目录。`training.yaml` 分为 `data`、`model`、`train`、`sys` 四节。需要优化器和调度器时，使用 `train.optimizer`、`train.scheduler`。独立推理从 `sampling.yaml` 读取 `sample.*` 和可选的 `model.checkpoint`。`wandb.yaml` 保存 `wandb.wandb_*` 日志设置。
+- [configs/](assets/project/configs/) 采用扁平结构。`config.yaml` 组合配置，定义实验名和训练运行目录。`training.yaml` 分为 `data`、`model`、`train`、`sys` 四节。需要优化器和调度器时，使用 `train.optimizer`、`train.scheduler`。独立推理从 `inference.yaml` 读取 `sample.*` 和可选的 `model.checkpoint`。`wandb.yaml` 保存 `wandb.wandb_*` 日志设置。
 - 独立评测通过 `--predictions` 指定已有预测，需要参考值时传入 `--reference`。实验只声明相对默认值的改动。W&B 默认关闭，启用时从本机登录或环境读取凭据。
-- **Training-free** 项目直接从推理开始。在新项目中只取 `inference.py`、`eval.py`、`configs/sampling.yaml` 和需要的项目目录。若已有 Hydra 主配置且继续使用它，移除闲置的训练 defaults 项。用冻结模型时保留 `model.checkpoint` 或固定的模型标识；纯算法删除权重字段。只有真实拟合参数时才引入训练入口、Lightning Trainer 和优化器。W&B 可独立记录推理和评测，也可一直关闭。
+- **Training-free** 项目直接从推理开始。在新项目中只取 `inference.py`、`eval.py`、`configs/inference.yaml` 和需要的项目目录。若已有 Hydra 主配置且继续使用它，移除闲置的训练 defaults 项。用冻结模型时保留 `model.checkpoint` 或固定的模型标识；纯算法删除权重字段。只有真实拟合参数时才引入训练入口、Lightning Trainer 和优化器。W&B 可独立记录推理和评测，也可一直关闭。
 - 每个输入独立进行的搜索、重排序或迭代优化属于推理，记录搜索预算即可。如果在验证集上选阈值或超参数，在对应实验中记下选择依据。跨训练样本学习并复用的参数（如校准器）应有可复现的拟合步骤，即使主模型始终冻结。
 
 ## 基线、实验与运行结果

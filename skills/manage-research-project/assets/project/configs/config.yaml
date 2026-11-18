@@ -1,6 +1,6 @@
 defaults:
   - training
-  - sampling
+  - inference
   - wandb
   - _self_
 
