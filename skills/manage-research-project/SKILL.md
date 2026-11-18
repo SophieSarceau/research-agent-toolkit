@@ -32,6 +32,7 @@ outputs/                          首次运行时生成
 - 保持 [configs/](assets/project/configs/) 扁平。`config.yaml` 负责 Hydra defaults、`experiment_name` 和运行目录。`training.yaml` 沿用顶层 `data`、`model`、`train`、`sys`，优化器和调度器需要时放在 `train.optimizer`、`train.scheduler`。推理配置沿用 `sampling.yaml`、`sample.*` 和可选的 `model.checkpoint`。`wandb.yaml` 沿用 `wandb.wandb_*` 字段。入口文件名可以是 `inference.py`，配置仍叫 `sampling.yaml`。
 - 评测优先复用已有配置和实验协议。需要可配置的独立评测参数时，在 `config.yaml` 加小型 `eval` 节；有现成项目约定时沿用它。实验只声明相对默认值的改动。W&B 默认关闭，启用时从本机登录或环境读取凭据。
 - **Training-free** 项目直接从推理开始。在骨架中移除 `training.yaml` 及其 defaults 项，保留有用的 `inference.py`、`eval.py`、Hydra 和实验目录。推理与评测共享的数据路径或划分可移至 `config.yaml` 的 `data` 节。用冻结模型时保留 `model.checkpoint` 或固定的模型标识；纯算法删除权重字段。只有真实拟合参数时才引入训练入口、Lightning Trainer 和优化器。W&B 可独立记录推理和评测，也可一直关闭。
+- 每个输入独立进行的搜索、重排序或迭代优化属于推理，记录搜索预算即可。如果在验证集上选阈值或超参数，在对应实验中记下选择依据。跨训练样本学习并复用的参数（如校准器）应有可复现的拟合步骤，即使主模型始终冻结。
 
 ## 基线、实验与运行结果
 
