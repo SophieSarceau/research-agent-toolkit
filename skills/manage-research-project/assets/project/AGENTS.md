@@ -1,21 +1,19 @@
 # Working on this project
 
-Keep `README.md` accurate for the current checkout. Update the project's description, status, features, or usage in place whenever they change. Keep version history and comparisons with earlier versions in Git.
+This file holds project-specific instructions. Where it differs from the `manage-research-project` skill, this file takes precedence.
 
-## Directory layout
+## Files
 
-- The root holds project documentation, repository metadata, and the applicable `train.py`, `inference.py`, and `eval.py` entry points.
-- `configs/` holds flat configuration files. `models/` holds model code, `datasets/` holds data loading and split logic, and `utils/` holds helpers shared across modules.
-- `baselines/<baseline_name>/` holds one baseline's adapter and configuration.
-- Group experiments by the question they answer. Create categories as needed (`training/`, `benchmark/`, `case_study/`, `ablation/`, `sensitivity/`, etc.). Each `experiments/<category>/<experiment_name>/` contains a `run.sh` that can be invoked from the repository root.
-- `tests/` holds reusable regression tests. Run one-off checks in a temporary directory outside the repository.
-- Training artifacts go to the Hydra run directory, under `outputs/` by default. Standalone inference and evaluation each write to their explicit `--output-dir`.
+- Place every new file according to the file table in `.agents/skills/manage-research-project/SKILL.md`. Ask before adding other top-level files or directories.
+- Run one-line checks inline. Put other one-off scripts, diagnostics and debug logs in `scratch/`, which may be deleted at any time; nothing may depend on it. Write run artifacts only under `outputs/`.
+- Keep `README.md` accurate for the current checkout. Update its description, status, features or usage in place, and keep version history in Git.
 
 ## Entry points
 
-- **Train.** Implement the model in `models/pl_model.py` and the data module in `datasets/pl_data.py`. Preview the Hydra configuration with `python train.py --cfg job`, then run `python train.py`. Set the training directory in `configs/config.yaml` or override it with `python train.py hydra.run.dir=/path/to/run`. Install `wandb` if tracking is enabled.
-- **Infer.** Implement `predict` in `inference.py`. Read settings such as `inference.seed` from `configs/inference.yaml`. Run `python inference.py --input INPUT --output-dir PREDICTIONS`.
-- **Evaluate.** Implement `evaluate` in `eval.py`. Run `python eval.py --predictions PREDICTIONS --output-dir METRICS` to score saved predictions. Add `--reference REFERENCE` when the metric needs reference data.
+- **Train.** Implement the model in `models/pl_model.py` and the data module in `datamodules/pl_data.py`. Preview the Hydra configuration with `python train.py --cfg job`, then run `python train.py`. Override the run directory with `python train.py hydra.run.dir=outputs/<path>`. Install `wandb` if tracking is enabled.
+- **Infer.** Implement `predict` in `inference.py`. Settings come from `configs/inference.yaml` and can be overridden as `key=value`: `python inference.py --input INPUT --output-dir outputs/<path> model.checkpoint=CHECKPOINT`.
+- **Evaluate.** Implement `evaluate` in `eval.py`. Run `python eval.py --predictions PREDICTIONS --output-dir outputs/<path>` to score saved predictions. Add `--reference REFERENCE` when the metric needs reference data.
+- **Experiment.** Run `bash experiments/<category>/<experiment_name>/run.sh [seed]` from the repository root.
 
 ## Current progress
 

@@ -12,10 +12,12 @@ def main(cfg: DictConfig) -> None:
     from pytorch_lightning import Trainer, seed_everything
     from pytorch_lightning.callbacks import ModelCheckpoint
 
-    from datasets.pl_data import build_datamodule
+    from datamodules.pl_data import build_datamodule
     from models.pl_model import build_model
+    from utils.run_record import write_run_record
 
     run_dir = Path(HydraConfig.get().runtime.output_dir)
+    write_run_record(run_dir)
     seed_everything(cfg.train.seed, workers=True)
     model = build_model(cfg)
     data = build_datamodule(cfg)

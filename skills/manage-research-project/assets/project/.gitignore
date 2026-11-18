@@ -1,7 +1,17 @@
+# Run artifacts, data and scratch work
 /outputs/
+/data/
+/scratch/
+
+# Environments and credentials
+/.venv/
+/.conda/
+.env
+
+# Tool defaults and caches
 /wandb/
 /lightning_logs/
+/.hydra/
 __pycache__/
 .pytest_cache/
-/.hydra/
-/.DS_Store
+.DS_Store

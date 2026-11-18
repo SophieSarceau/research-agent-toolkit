@@ -4,6 +4,8 @@ import argparse
 from pathlib import Path
 from typing import Optional
 
+from utils.run_record import write_run_record
+
 
 def evaluate(predictions: Path, reference: Optional[Path], output_dir: Path) -> None:
     """Read predictions and write metrics for the selected samples to output_dir."""
@@ -16,6 +18,7 @@ def main() -> None:
     parser.add_argument("--reference", type=Path, help="Reference data for supervised metrics")
     parser.add_argument("--output-dir", type=Path, required=True, help="Metric directory")
     args = parser.parse_args()
+    write_run_record(args.output_dir)
     evaluate(args.predictions, args.reference, args.output_dir)
 
 
