@@ -1,0 +1,16 @@
+defaults:
+  - training
+  - sampling
+  - wandb
+  - _self_
+
+hydra:
+  job:
+    chdir: false
+  run:
+    dir: ./outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}-${experiment_name}
+  sweep:
+    dir: ${hydra.run.dir}
+    subdir: ${hydra.job.num}
+
+experiment_name: research-run
